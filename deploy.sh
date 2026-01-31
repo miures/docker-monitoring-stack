@@ -6,8 +6,8 @@
 set -e
 
 SERVER="192.168.1.13"
-REMOTE_USER="root"  # Cambiar según tu usuario
-REMOTE_PATH="/opt/docker-monitoring"
+REMOTE_USER="asanchez"  # Cambiar según tu usuario
+REMOTE_PATH="/home/asanchez/docker-monitoring"
 
 echo "========================================"
 echo "  Despliegue de Stack de Monitoreo"
@@ -48,12 +48,12 @@ echo -e "${GREEN}✓${NC} Archivos copiados"
 
 # Desplegar stack
 echo -e "\n${YELLOW}[4/5]${NC} Desplegando stack de monitoreo..."
-ssh ${REMOTE_USER}@${SERVER} "cd ${REMOTE_PATH} && docker-compose down && docker-compose up -d"
+ssh -t ${REMOTE_USER}@${SERVER} "cd ${REMOTE_PATH} && sudo docker compose down 2>/dev/null; sudo docker compose up -d"
 echo -e "${GREEN}✓${NC} Stack desplegado"
 
 # Verificar estado
 echo -e "\n${YELLOW}[5/5]${NC} Verificando estado de contenedores..."
-ssh ${REMOTE_USER}@${SERVER} "cd ${REMOTE_PATH} && docker-compose ps"
+ssh ${REMOTE_USER}@${SERVER} "cd ${REMOTE_PATH} && sudo docker compose ps"
 
 # Información final
 echo -e "\n${GREEN}========================================"
