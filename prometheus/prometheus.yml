@@ -49,3 +49,21 @@ scrape_configs:
   #     - targets: ['192.168.1.13:9323']
   #       labels:
   #         instance: 'docker-daemon'
+
+  # TrueNAS - Métricas de contenedores Docker
+  - job_name: 'truenas-cadvisor'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['192.168.1.12:8080']
+        labels:
+          instance: 'truenas'
+          group: 'docker'
+
+  # TrueNAS - Métricas del sistema
+  - job_name: 'truenas-node-exporter'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['192.168.1.12:9100']
+        labels:
+          instance: 'truenas'
+          group: 'system'
