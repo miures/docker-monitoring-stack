@@ -1,0 +1,29 @@
+# Archivos de entorno
+.env
+
+# Datos de volúmenes de Docker
+grafana-data/
+prometheus-data/
+
+# Logs
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.swp
+*.swo
+*~
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Configuraciones locales
+*.local
+local-config.yml

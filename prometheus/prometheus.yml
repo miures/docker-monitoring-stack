@@ -1,0 +1,51 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'docker-monitoring'
+    environment: 'production'
+
+# Configuración de Alertmanager (opcional)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ['alertmanager:9093']
+
+# Archivos de reglas (opcional)
+# rule_files:
+#   - "alerts/*.yml"
+
+# Configuración de scrape
+scrape_configs:
+  # Prometheus se monitorea a sí mismo
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          instance: 'prometheus'
+          group: 'monitoring'
+
+  # cAdvisor - Métricas de contenedores Docker
+  - job_name: 'cadvisor'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['cadvisor:8080']
+        labels:
+          instance: 'docker-host'
+          group: 'docker'
+
+  # Node Exporter - Métricas del sistema
+  - job_name: 'node-exporter'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['node-exporter:9100']
+        labels:
+          instance: 'docker-host'
+          group: 'system'
+
+  # Docker Engine Metrics (requiere configurar el daemon de Docker)
+  # - job_name: 'docker'
+  #   static_configs:
+  #     - targets: ['192.168.1.13:9323']
+  #       labels:
+  #         instance: 'docker-daemon'
